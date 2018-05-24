@@ -7,7 +7,8 @@ library(foreach)
 library(doParallel)
 
 #setwd("F:/Dropbox/FSU/FSU Summer 2017/Mark_Project/")
-setwd("/Users/phenrickson/Dropbox/FSU/Mark_Projects/")
+#setwd("/Users/phenrickson/Dropbox/FSU/Mark_Projects/")
+setwd("C:/Users/PoliSci Lab_2/Downloads/Mark_Projects/")
 
 # load in ms data
 ms_dat<-as.data.table(read.dta("ms_data_v2.dta"))
@@ -260,13 +261,14 @@ g4
 
 library(gridExtra)
 grid.arrange(g1, g2, g3, g4, ncol=2)
+rm(a, b, c1, c2, foo, df, meltdf, new, old, out, test, s_atop, w, portfolio_atopms2, portfolio_cowalliance, portfolio_milinst_atop)
 
 
 ### Compute S_atop codes for all countries
 ccodes<-cleanCCode(sort(unique(c(ms_dat$ccode1, ms_dat$ccode2))))
 
 # loop over years
-S_milinst_atop<-foreach(i=1:length(portfolio_milinst_atop), .combine=rbind.data.frame) %do% {
+S_milinst_atop<-foreach(i=1:length(milinst_atop), .combine=rbind.data.frame) %do% {
         
         # grab one state
         c1<-ccodes[i]
@@ -280,7 +282,7 @@ S_milinst_atop<-foreach(i=1:length(portfolio_milinst_atop), .combine=rbind.data.
                 # then run across all years
                 hold_years<-foreach(k=1:length(allyears), .combine=rbind.data.frame) %do% {
                         
-                        foo<-portfolio_milinst_atop[[k]] %>%
+                        foo<-milinst_atop[[k]] %>%
                                 filter(ccode==c1 | ccode== c2) %>%
                                 select(-ccode, -year)
                         

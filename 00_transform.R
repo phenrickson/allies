@@ -56,6 +56,7 @@ cleanDat<-data.table(ccode1,
                  "s_un_glo", "atopdp", "milinst_atop",
                  "cowdp", "atopally", "cowalliance", "atopms2"))
 cleanDat
+save(cleanDat, file="cleanDat.Rdata")
 
 rm(ms_dat, dat, c1c2_year, c2c1_year)
 
